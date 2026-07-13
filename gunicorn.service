@@ -3,11 +3,12 @@ Description=gunicorninstance to server api
 After=network.target
 
 [Service]
-User=temtiayo
-Group=temtiayo
+User=temitayo
+Group=temitayo
 WorkingDirectory=/home/temitayo/fast-app/src/
 Environment="PATH=/home/temitayo/fast-app/venv/bin"
-ExecStart=/home/temitayo/fast-app/venv/bin/gunicon -w 3 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:7000
+EnvironmentFile=/home/temitayo/fast-app/.env
+ExecStart=/home/temitayo/fast-app/venv/bin/gunicorn -w 3 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:7000
 
 [Install]
 WantedBy=multi-user.target
