@@ -1,0 +1,32 @@
+services:
+  social_media_api:
+    image: mallamty/social_media_api:v1
+    ports:
+      - 8000:7000
+    environment:
+      - DATABASE_USERNAME=${DATABASE_USERNAME}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_HOSTNAME=${DATABASE_HOSTNAME}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - SECRET_KEY=${SECRET_KEY}
+      - ALGORITHM=${ALGORITHM}
+      - EXPIRE_MINUTES=${EXPIRE_MINUTES}
+    depends_on:
+      - postgres
+    networks:
+      - social_media_network
+  postgres:
+    image: postgres:17
+    environment:
+      - POSTGRES_USER=${DATABASE_USERNAME}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+      # ports:
+      #   - "5432:5432"
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+    
+
+volumes:
+  postgres_db:

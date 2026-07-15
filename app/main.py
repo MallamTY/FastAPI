@@ -25,7 +25,7 @@ app.add_middleware(
 )
 @app.get("/")
 def read_root():
-    return {"message": "Hello World"}
+    return {"message": "Testing synchronization for development!!!!!!!!!!!!!!!!! sort off stuff goes here somehow"}
 
 app.include_router(posts.router, prefix="/api/v1")
 app.include_router(users.router, prefix="/api/v1")
