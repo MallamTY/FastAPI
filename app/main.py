@@ -23,7 +23,7 @@ app.add_middleware(
     allow_headers=["*"],
 
 )
-@app.get("/")
+@app.get("/", status_code=200)
 def read_root():
     return {"message": "Testing synchronization for development!!!!!!!!!!!!!!!!! sort off stuff goes here somehow"}
 

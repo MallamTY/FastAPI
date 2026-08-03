@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 from pydantic.types import conint
 from datetime import datetime
 from typing import List, Optional, Annotated
@@ -19,46 +19,41 @@ class Post(PostBase):
     created_at: datetime
     poster_id: int
     poster: "User"
-    class Config:
-        orm_mode = True
+    
+    model_config = ConfigDict(from_attributes=True)
 
 
 class DirectPostVote(BaseModel):
     Post: Post
     votes: int
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 # The clean envelope container
 class CustomPostEnvelopeList(BaseModel):
     message: str
     data: List[DirectPostVote]
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class CustomPostEnvelope(BaseModel):
     message: str
     data: DirectPostVote
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class PostResponseEnvelope(BaseModel):
     message: str
     data: Post
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 class PostResponseEnvelopeList(BaseModel):
     message: str
     data: List[Post]
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 class UserBase(BaseModel):
     first_name: str
@@ -73,15 +68,13 @@ class User(UserBase):
     id: int
     created_at: datetime
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 class UserResponseEnvelope(BaseModel):
     message: str
     data: User
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 class UserLogin(BaseModel):
     email: EmailStr

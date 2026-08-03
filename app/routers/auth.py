@@ -18,10 +18,10 @@ def login(payload: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(
      user = db.query(models.User).filter(models.User.email == payload.username).first()
 
      if not user:
-          raise  HTTPException(status_code = status.HTTP_403_FORBIDDEN, detail = f"Invalid credentials")
+          raise  HTTPException(status_code = status.HTTP_403_FORBIDDEN, detail = f"Invalid Credentials")
      is_valid_password = verify_password(payload.password, user.password)
      if is_valid_password == False:
-          raise HTTPException(status_code = status.HTTP_403_FORBIDDEN, detail = f"Invalid credentials")
+          raise HTTPException(status_code = status.HTTP_403_FORBIDDEN, detail = f"Invalid Credentials")
      
      payload = {"user_id": user.id}
      token = create_access_token(payload)
