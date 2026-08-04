@@ -20,7 +20,6 @@ def vote(vote: schemas.Vote, db: Session = Depends(get_db), current_user: schema
             raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=f"user has already voted on post {vote.post_id}")
         else:
             new_vote = models.Votes(post_id=vote.post_id, user_id=current_user.id)
-            print(f"========================{vote.post_id}========================{current_user.id}")
             db.add(new_vote)
             db.commit()
             return {"message": "Successfully added vote"}
